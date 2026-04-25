@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
+
+:root {
+    --bg-main: rgba(8, 9, 13, 0.88);
+    --bg-soft: rgba(23, 25, 33, 0.92);
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --text-main: rgba(255, 255, 255, 0.96);
+    --text-muted: rgba(220, 225, 235, 0.72);
+
+    --primary: #ef233c;
+    --success: #2ee98f;
+    --error: #ff304f;
+    --warning: #ffb020;
+    --info: #58a6ff;
+    --cash: #28e98c;
+    --police: #4aa3ff;
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+#notify-root {
+    position: absolute;
+    top: 9%;
+    right: 1.5%;
+    width: 370px;
+    max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999999;
+    pointer-events: none;
+}
+
+.notify {
+    position: relative;
+    width: 100%;
+    min-height: 86px;
+    padding: 14px 15px 13px 15px;
+    border-radius: 18px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 32%),
+        linear-gradient(135deg, rgba(22, 24, 31, 0.94), rgba(7, 8, 12, 0.92));
+    border: 1px solid var(--border-soft);
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transform: translateX(115%) scale(0.96);
+    opacity: 0;
+    animation: notifyIn 420ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.notify.exit {
+    animation: notifyOut 360ms cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+.notify::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.055), transparent 45%),
+        radial-gradient(circle at 95% 10%, rgba(255, 255, 255, 0.06), transparent 25%);
+    pointer-events: none;
+}
+
+.notify-glow {
+    position: absolute;
+    top: -35px;
+    right: -35px;
+    width: 120px;
+    height: 120px;
+    border-radius: 999px;
+    filter: blur(22px);
+    opacity: 0.32;
+}
+
+.notify-content {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    z-index: 2;
+}
+
+.notify-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 900;
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.notify-text {
+    flex: 1;
+    min-width: 0;
+    padding-top: 1px;
+}
+
+.notify-title {
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    line-height: 1.15;
+    margin-bottom: 5px;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+}
+
+.notify-message {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.35;
+    word-wrap: break-word;
+}
+
+.notify-progress-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.notify-progress {
+    width: 100%;
+    height: 100%;
+    transform-origin: left center;
+    animation-name: progressDrain;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+.notify.primary .notify-icon,
+.notify.primary .notify-progress,
+.notify.primary .notify-glow {
+    background: linear-gradient(135deg, #ff334b, #a8081b);
+}
+
+.notify.success .notify-icon,
+.notify.success .notify-progress,
+.notify.success .notify-glow {
+    background: linear-gradient(135deg, #35f7a0, #0b8f55);
+}
+
+.notify.error .notify-icon,
+.notify.error .notify-progress,
+.notify.error .notify-glow {
+    background: linear-gradient(135deg, #ff4b64, #a8001b);
+}
+
+.notify.warning .notify-icon,
+.notify.warning .notify-progress,
+.notify.warning .notify-glow {
+    background: linear-gradient(135deg, #ffc247, #c46a00);
+}
+
+.notify.info .notify-icon,
+.notify.info .notify-progress,
+.notify.info .notify-glow {
+    background: linear-gradient(135deg, #69b7ff, #165fbe);
+}
+
+.notify.cash .notify-icon,
+.notify.cash .notify-progress,
+.notify.cash .notify-glow {
+    background: linear-gradient(135deg, #2fffa0, #0e9b58);
+}
+
+.notify.police .notify-icon,
+.notify.police .notify-progress,
+.notify.police .notify-glow {
+    background: linear-gradient(135deg, #67b7ff, #1554d1);
+}
+
+.notify.primary {
+    border-color: rgba(239, 35, 60, 0.28);
+}
+
+.notify.success {
+    border-color: rgba(46, 233, 143, 0.25);
+}
+
+.notify.error {
+    border-color: rgba(255, 48, 79, 0.28);
+}
+
+.notify.warning {
+    border-color: rgba(255, 176, 32, 0.28);
+}
+
+.notify.info {
+    border-color: rgba(88, 166, 255, 0.26);
+}
+
+.notify.cash {
+    border-color: rgba(40, 233, 140, 0.26);
+}
+
+.notify.police {
+    border-color: rgba(74, 163, 255, 0.28);
+}
+
+@keyframes notifyIn {
+    0% {
+        transform: translateX(115%) scale(0.96);
+        opacity: 0;
+    }
+
+    70% {
+        transform: translateX(-3%) scale(1.01);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes notifyOut {
+    0% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(115%) scale(0.96);
+        opacity: 0;
+    }
+}
+
+@keyframes progressDrain {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+@media (max-width: 1280px) {
+    #notify-root {
+        top: 7%;
+        right: 1.25%;
+        width: 340px;
+        max-width: 340px;
+    }
+
+    .notify {
+        min-height: 80px;
+        border-radius: 16px;
+    }
+
+    .notify-icon {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        border-radius: 12px;
+        font-size: 17px;
+    }
+
+    .notify-title {
+        font-size: 13px;
+    }
+
+    .notify-message {
+        font-size: 11.5px;
+    }
+}
