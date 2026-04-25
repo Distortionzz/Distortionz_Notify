@@ -3,11 +3,14 @@ game 'gta5'
 
 author 'Distortionz'
 description 'Premium custom notification system for Distortionz RP'
-version '1.0.2'
+version '1.0.3'
 
 ui_page 'html/index.html'
 
+shared_script 'config.lua'
+
 client_script 'client.lua'
+server_script 'server.lua'
 
 files {
     'html/index.html',

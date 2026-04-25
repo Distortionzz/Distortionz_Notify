@@ -1,77 +1,50 @@
-local defaultTitle = 'Distortionz'
-local defaultType = 'primary'
-local defaultDuration = 5000
+local function GetDefaultTitle()
+    if Config and Config.Notify and Config.Notify.defaultTitle then
+        return Config.Notify.defaultTitle
+    end
 
-local allowedTypes = {
-    success = true,
-    error = true,
-    warning = true,
-    info = true,
-    primary = true,
-    cash = true,
-    police = true
-}
+    return 'Distortionz'
+end
 
-local Config = {}
+local function GetDefaultType()
+    if Config and Config.Notify and Config.Notify.defaultType then
+        return Config.Notify.defaultType
+    end
 
-Config.Sound = {
-    enabled = true,
+    return 'primary'
+end
 
-    -- Set this to false if you want one universal sound for every notification.
-    useSoundPerType = true,
+local function GetDefaultDuration()
+    if Config and Config.Notify and Config.Notify.defaultDuration then
+        return Config.Notify.defaultDuration
+    end
 
-    default = {
-        soundName = 'NAV_UP_DOWN',
-        soundSet = 'HUD_FRONTEND_DEFAULT_SOUNDSET'
-    },
+    return 5000
+end
 
-    types = {
-        primary = {
-            soundName = 'NAV_UP_DOWN',
-            soundSet = 'HUD_FRONTEND_DEFAULT_SOUNDSET'
-        },
+local function IsAllowedType(notifyType)
+    if not Config or not Config.Notify or not Config.Notify.allowedTypes then
+        return notifyType == 'success'
+            or notifyType == 'error'
+            or notifyType == 'warning'
+            or notifyType == 'info'
+            or notifyType == 'primary'
+            or notifyType == 'cash'
+            or notifyType == 'police'
+    end
 
-        success = {
-            soundName = 'CHECKPOINT_PERFECT',
-            soundSet = 'HUD_MINI_GAME_SOUNDSET'
-        },
-
-        error = {
-            soundName = 'ERROR',
-            soundSet = 'HUD_FRONTEND_DEFAULT_SOUNDSET'
-        },
-
-        warning = {
-            soundName = 'ATM_WINDOW',
-            soundSet = 'HUD_FRONTEND_DEFAULT_SOUNDSET'
-        },
-
-        info = {
-            soundName = 'SELECT',
-            soundSet = 'HUD_FRONTEND_DEFAULT_SOUNDSET'
-        },
-
-        cash = {
-            soundName = 'PICK_UP',
-            soundSet = 'HUD_FRONTEND_DEFAULT_SOUNDSET'
-        },
-
-        police = {
-            soundName = 'TIMER_STOP',
-            soundSet = 'HUD_MINI_GAME_SOUNDSET'
-        }
-    }
-}
+    return Config.Notify.allowedTypes[notifyType] == true
+end
 
 local function NormalizeType(notifyType)
-    notifyType = notifyType or defaultType
+    notifyType = notifyType or GetDefaultType()
 
     if notifyType == 'inform' then
         notifyType = 'info'
     end
 
-    if not allowedTypes[notifyType] then
-        notifyType = defaultType
+    if not IsAllowedType(notifyType) then
+        notifyType = GetDefaultType()
     end
 
     return notifyType
@@ -79,13 +52,13 @@ end
 
 local function PlayNotifySound(notifyType, soundEnabled)
     if soundEnabled == false then return end
-    if not Config.Sound.enabled then return end
+    if not Config or not Config.Sound or not Config.Sound.enabled then return end
 
     notifyType = NormalizeType(notifyType)
 
     local soundData = Config.Sound.default
 
-    if Config.Sound.useSoundPerType and Config.Sound.types[notifyType] then
+    if Config.Sound.useSoundPerType and Config.Sound.types and Config.Sound.types[notifyType] then
         soundData = Config.Sound.types[notifyType]
     end
 
@@ -103,8 +76,8 @@ local function Notify(message, notifyType, duration, title, soundEnabled)
     if not message then return end
 
     notifyType = NormalizeType(notifyType)
-    duration = tonumber(duration) or defaultDuration
-    title = title or defaultTitle
+    duration = tonumber(duration) or GetDefaultDuration()
+    title = title or GetDefaultTitle()
 
     PlayNotifySound(notifyType, soundEnabled)
 
