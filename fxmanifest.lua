@@ -10,7 +10,8 @@ ui_page 'html/index.html'
 shared_script 'config.lua'
 
 client_script 'client.lua'
-server_script 'server.lua'
+
+server_script 'version_check.lua'
 
 files {
     'html/index.html',
