@@ -6,11 +6,11 @@ Config.Script = {
 }
 
 Config.VersionCheck = {
-    enabled = true,
-    resourceName = 'Distortionz_notify',
-    currentVersion = '1.0.3',
-    githubVersionUrl = 'https://raw.githubusercontent.com/Distortionzz/Distortionz_notify/main/version.json'
+    enabled      = true,
+    checkOnStart = true,
+    url          = 'https://raw.githubusercontent.com/Distortionzz/Distortionz_Notify/main/version.json',
 }
+Config.CurrentVersion = '1.0.3'
 
 Config.Notify = {
     defaultTitle = 'Distortionz',
