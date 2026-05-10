@@ -2,7 +2,7 @@ Config = Config or {}
 
 Config.Script = {
     name = 'Distortionz Notify',
-    version = '1.0.3'
+    version = '1.0.4'
 }
 
 Config.VersionCheck = {
@@ -10,7 +10,7 @@ Config.VersionCheck = {
     checkOnStart = true,
     url          = 'https://raw.githubusercontent.com/Distortionzz/Distortionz_Notify/main/version.json',
 }
-Config.CurrentVersion = '1.0.3'
+Config.CurrentVersion = '1.0.4'
 
 Config.Notify = {
     defaultTitle = 'Distortionz',

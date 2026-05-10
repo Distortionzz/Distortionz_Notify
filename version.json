@@ -1,6 +1,6 @@
 {
-    "version": "1.0.3",
+    "version": "1.0.4",
     "name": "distortionz_notify",
     "download": "https://github.com/Distortionzz/Distortionz_Notify",
-    "changelog": "v1.0.3 — Standardized version checker format. Premium custom notification system with config support, custom status sounds (success/error/warning/info/cash/police), premium NUI, and server-side notify API."
+    "changelog": "v1.0.4 — Added README.md with overview, features, dependencies, installation, API reference, and credits. Standardized GitHub repo metadata (badges, dynamic version pull, MIT license, Qbox required). v1.0.3 — Standardized version checker format. Premium custom notification system with config support, custom status sounds (success/error/warning/info/cash/police), premium NUI, and server-side notify API."
 }
