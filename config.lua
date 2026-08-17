@@ -2,7 +2,7 @@ Config = Config or {}
 
 Config.Script = {
     name = 'Distortionz Notify',
-    version = '1.0.4'
+    version = '1.1.0'
 }
 
 Config.VersionCheck = {
@@ -10,7 +10,7 @@ Config.VersionCheck = {
     checkOnStart = true,
     url          = 'https://raw.githubusercontent.com/Distortionzz/Distortionz_Notify/main/version.json',
 }
-Config.CurrentVersion = '1.0.4'
+Config.CurrentVersion = '1.1.0'
 
 Config.Notify = {
     defaultTitle = 'Distortionz',
@@ -26,6 +26,14 @@ Config.Notify = {
         cash = true,
         police = true
     }
+}
+
+-- Hard limits enforced server-side before anything reaches a client's NUI.
+Config.Server = {
+    maxMessageLength = 200,
+    maxTitleLength   = 64,
+    minDuration      = 1000,
+    maxDuration      = 30000
 }
 
 Config.Sound = {

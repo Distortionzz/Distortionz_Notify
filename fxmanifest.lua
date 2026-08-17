@@ -4,7 +4,7 @@ lua54 'yes'
 
 author 'Distortionz'
 description 'Premium custom notification system for Distortionz RP'
-version '1.0.4'
+version '1.1.0'
 repository 'https://github.com/Distortionzz/Distortionz_Notify'
 
 ui_page 'html/index.html'
@@ -18,7 +18,8 @@ client_scripts {
 }
 
 server_scripts {
-    'version_check.lua'
+    'version_check.lua',
+    'server.lua'
 }
 
 files {
